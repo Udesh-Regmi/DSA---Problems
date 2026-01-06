@@ -254,6 +254,42 @@ Any system combining sorted data streams uses this idea.
 
 ---
 
+
+## Personal Learning Experience 
+
+When I first encountered this problem, my instinct was to **loop through both lists manually** and compare values step by step, similar to merging two sorted arrays. I understood *what* needed to happen, but managing pointers without breaking the list felt messy at first.
+
+My early attempts failed for predictable reasons:
+
+* I lost track of the head of the merged list.
+* I moved pointers incorrectly and skipped nodes.
+* I tried to “build” the list without a clear anchor point.
+
+The breakthrough was learning to use a **dummy node**.
+
+Once I introduced a dummy node:
+
+* I stopped worrying about initializing the head.
+* Pointer movement became mechanical and predictable.
+* Each comparison felt intentional instead of fragile.
+
+The loop-based approach taught me an important linked list lesson:
+
+> Most linked list bugs come from **poor pointer management**, not logic errors.
+
+By maintaining:
+
+* one pointer for traversal,
+* and two pointers for the input lists,
+
+the solution became straightforward and safe. This approach also made me more comfortable with **in-place list manipulation**, which shows up repeatedly in linked list problems.
+
+After understanding the iterative solution, the recursive version made more sense conceptually. But the loop-based approach felt more **production-ready**, especially when thinking about stack limits and real-world constraints.
+
+This problem helped me shift from “trying things until it works” to **designing pointer flow before coding**, which significantly reduced mistakes in later linked list problems.
+
+
+
 ## Conclusion
 
 The recursive approach mirrors how humans naturally think about merging sorted lists:

@@ -6,28 +6,29 @@ Given an array of strings `strs`, return the **longest common prefix** shared am
 
 If there is **no common prefix**, return an empty string `""`.
 
-A prefix is a **starting substring** of a string.  
-For example, `"pre"` is a prefix of `"prefix"`, but not of `"replay"`.
+A prefix is a **starting substring** of a string. For example, `"pre"` is a prefix of `"prefix"`, but not of `"replay"`.
 
 ---
 
 ## Examples
 
-**Example 1**
-```
+### Example 1
 
+```
 Input: strs = ["flower","flow","flight"]
 Output: "fl"
-
 ```
 
-**Example 2**
+### Example 2
 
+```
 Input: strs = ["dog","racecar","car"]
 Output: ""
-Explanation: There is no common prefix.
+```
 
+**Explanation:** There is no common prefix among the input strings.
 
+---
 
 ## Constraints
 
@@ -47,22 +48,22 @@ Explanation: There is no common prefix.
 
 ---
 
-## Core Idea to Solve This Problem
+## Core Idea
 
 This problem is about **reducing comparisons**.
 
 Key observation:
 
-> If all strings are sorted lexicographically,  
-> the **longest common prefix of the entire array** must be the common prefix between:
+> If all strings are sorted lexicographically, the **longest common prefix of the entire array** must be the common prefix between:
 >
 > * the **first** string
 > * the **last** string
 
-Why this works:
+### Why This Works
+
 * Sorting places the most dissimilar strings at the extremes.
-* Any mismatch in prefix will appear between these two.
-* Comparing only two strings instead of all improves clarity and simplicity.
+* Any mismatch in the prefix will appear between these two strings.
+* Comparing only two strings instead of all of them simplifies the logic while remaining correct.
 
 ---
 
@@ -70,28 +71,32 @@ Why this works:
 
 ### Explanation
 
-1. If the array is empty, return `""`.
+1. If the array is empty, return an empty string.
 2. Sort the array lexicographically.
 3. Compare characters of:
+
    * `first = strs[0]`
    * `last = strs[strs.length - 1]`
 4. Count matching characters from the start.
 5. Return the substring from index `0` to the first mismatch.
 
-This avoids nested comparisons across all strings.
+This avoids repeated comparisons across all strings.
 
+---
 
 ## Time and Space Complexity
 
-* **Time Complexity:**  
-  `O(n log n + m)`  
+* **Time Complexity:**
+  `O(n log n + m)`
   where:
+
   * `n` = number of strings
   * `m` = length of the shortest string
 
-* **Space Complexity:**  
+* **Space Complexity:**
   `O(1)` (ignoring sort internals)
 
+---
 
 ## Implementation
 
@@ -124,30 +129,32 @@ class Solution {
 }
 ```
 
+---
+
 ## Alternative Approaches (Brief)
 
 ### 1. Vertical Scanning
 
 Compare characters column by column across all strings.
 
-* Time: `O(n * m)`
+* Time: `O(n · m)`
 * Space: `O(1)`
-* Very intuitive, slightly more comparisons.
+* Very intuitive, but involves more comparisons.
 
 ### 2. Horizontal Scanning
 
-Start with the first string as prefix and shrink it.
+Start with the first string as the prefix and shrink it while comparing with each string.
 
-* Time: `O(n * m)`
+* Time: `O(n · m)`
 * Space: `O(1)`
 
 ### 3. Trie (Prefix Tree)
 
-Insert all strings into a Trie and traverse until divergence.
+Insert all strings into a Trie and traverse until characters diverge.
 
-* Time: `O(n * m)`
-* Space: `O(n * m)`
-* Overkill for interviews unless explicitly required.
+* Time: `O(n · m)`
+* Space: `O(n · m)`
+* Generally unnecessary unless explicitly required.
 
 ---
 
@@ -162,42 +169,19 @@ Insert all strings into a Trie and traverse until divergence.
 
 ---
 
-## How to Approach Similar Problems
+## Personal Learning Experience
 
-1. Identify **shared structure** (prefix, suffix, overlap).
-2. Minimize comparisons by finding **extreme cases**.
-3. Prefer **single-pass or reduced-input strategies**.
-4. Ask:
+When I first attempted this problem, my instinct was to compare every string with every other string, which quickly felt messy and inefficient. I then tried vertical scanning, comparing characters column by column, which worked but still felt like more effort than necessary.
 
-   * Do I really need to compare everything?
-   * Can sorting simplify the problem?
+After exploring different solutions, the sorting-based approach stood out. Initially, it was not obvious to me why sorting would help. However, once I understood that the longest common prefix must lie between the lexicographically smallest and largest strings, the logic became very clear.
 
-This mindset applies to:
-
-* Autocomplete systems
-* Search suggestions
-* URL routing
-* Command parsing
-* Configuration key matching
-
----
-
-## Real-World Use Cases
-
-* **Search engines:** autocomplete suggestions
-* **ID or SKU validation:** shared prefixes
-* **File system tools:** directory path matching
-* **Routing systems:** common API route detection
-* **Text processing pipelines**
-
-Any system that groups or validates strings based on shared beginnings benefits from this logic.
+This problem taught me an important lesson: sometimes a preprocessing step like sorting can dramatically simplify a problem. Instead of brute-forcing comparisons, identifying extreme cases can lead to cleaner and more elegant solutions.
 
 ---
 
 ## Conclusion
 
-The sorting-based approach is concise, readable, and effective.
-By reducing the problem to a comparison between two strings, it avoids unnecessary complexity while remaining robust and interview-friendly.
+The sorting-based approach is concise, readable, and effective. By reducing the problem to a comparison between just two strings, it avoids unnecessary complexity while remaining robust and interview-friendly.
 
 ---
 
@@ -209,4 +193,4 @@ By reducing the problem to a comparison between two strings, it avoids unnecessa
 
 ---
 
-> Part of continuous LeetCode practice focused on building strong DSA fundamentals.
+> Part of continuous LeetCode practice focused on building strong data structures and algorithm fundamentals.

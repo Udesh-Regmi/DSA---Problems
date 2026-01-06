@@ -10,29 +10,35 @@ A palindrome number reads the same **forward and backward**.
 
 ## Examples
 
-**Example 1**
+### Example 1
 
 ```
 Input: x = 121
 Output: true
-Explanation: 121 reads the same from left to right and right to left.
 ```
 
-**Example 2**
+**Explanation:**
+`121` reads the same from left to right and from right to left.
+
+### Example 2
 
 ```
 Input: x = -121
 Output: false
-Explanation: -121 becomes 121- when reversed, which is not the same.
 ```
 
-**Example 3**
+**Explanation:**
+When reversed, `-121` becomes `121-`, which is not the same as the original number.
+
+### Example 3
 
 ```
 Input: x = 10
 Output: false
-Explanation: Reverses to 01, which is not equal to 10.
 ```
+
+**Explanation:**
+Reversing `10` produces `01`, which is not equal to `10`.
 
 ---
 
@@ -45,9 +51,7 @@ Explanation: Reverses to 01, which is not equal to 10.
 ## Applicable Topics
 
 * Math
-* Integer manipulation
-* Stack
-* Recursion
+* Integer Manipulation
 
 ---
 
@@ -63,15 +67,15 @@ Key observations:
 
 * Negative numbers can never be palindromes.
 * Any number ending with `0` (except `0` itself) cannot be a palindrome.
-* Instead of reversing the whole number, we reverse **only half** and compare.
+* Instead of reversing the entire number, we reverse **only half** of it and compare the two halves.
 
-This avoids integer overflow and extra space.
+This approach avoids unnecessary computation, prevents integer overflow, and uses constant space.
 
 #### Algorithm
 
-1. Reject negative numbers and numbers ending with 0 (except 0).
-2. Reverse digits until the reversed half is greater than or equal to the remaining half.
-3. Compare the two halves.
+1. Reject negative numbers and numbers ending with `0` (except `0`).
+2. Reverse digits until the reversed half becomes greater than or equal to the remaining half.
+3. Compare the two halves to determine if the number is a palindrome.
 
 #### Time and Space Complexity
 
@@ -103,9 +107,9 @@ class Solution {
 
 #### Explanation
 
-In this approach, the entire number is reversed and compared with the original value.
+This approach reverses the entire number and compares it with the original value.
 
-This method is intuitive but slightly riskier due to **integer overflow** (though safe within given constraints).
+While intuitive and easy to implement, it is slightly less robust due to potential integer overflow (although overflow does not occur within the given constraints).
 
 #### Time and Space Complexity
 
@@ -134,93 +138,28 @@ class Solution {
 
 ---
 
-### 3. Stack-Based Approach
-
-#### Explanation
-
-Digits are pushed onto a stack while extracting them from the number. The number is reconstructed by popping from the stack and compared with the original.
-
-This approach is conceptually clean but uses extra memory.
-
-#### Time and Space Complexity
-
-* **Time Complexity:** O(log₁₀ n)
-* **Space Complexity:** O(log₁₀ n)
-
-#### Implementation
-
-```java
-import java.util.Stack;
-
-class Solution {
-    public boolean isPalindrome(int x) {
-        if (x < 0) return false;
-
-        Stack<Integer> stack = new Stack<>();
-        int original = x;
-
-        while (x != 0) {
-            stack.push(x % 10);
-            x /= 10;
-        }
-
-        int reversed = 0;
-        while (!stack.isEmpty()) {
-            reversed = reversed * 10 + stack.pop();
-        }
-
-        return original == reversed;
-    }
-}
-```
-
----
-
-### 4. Recursive Approach
-
-#### Explanation
-
-Recursion is used to reverse the number by passing digits through recursive calls.
-
-This approach is elegant but inefficient due to recursion depth and extra stack space.
-
-#### Time and Space Complexity
-
-* **Time Complexity:** O(log₁₀ n)
-* **Space Complexity:** O(log₁₀ n)
-
-#### Implementation
-
-```java
-class Solution {
-    private int reverse(int x, int rev) {
-        if (x == 0) return rev;
-        return reverse(x / 10, rev * 10 + x % 10);
-    }
-
-    public boolean isPalindrome(int x) {
-        if (x < 0) return false;
-        return x == reverse(x, 0);
-    }
-}
-```
-
----
-
 ## Comparison Summary
 
-| Approach     | Time     | Space    | Recommended      |
-| ------------ | -------- | -------- | ---------------- |
-| Half Reverse | O(log n) | O(1)     | ✅ Best           |
-| Full Reverse | O(log n) | O(1)     | ⚠️ Acceptable    |
-| Stack        | O(log n) | O(log n) | ❌ Extra space    |
-| Recursion    | O(log n) | O(log n) | ❌ Stack overhead |
+| Approach      | Time     | Space | Recommendation |
+| ------------- | -------- | ----- | -------------- |
+| Half Reversal | O(log n) | O(1)  | ✅ Preferred    |
+| Full Reversal | O(log n) | O(1)  | ⚠️ Acceptable  |
+
+---
+
+## Personal Learning Experience
+
+When I first encountered this problem, my initial instinct was to reverse the entire number and compare it with the original value. This approach worked correctly and helped me understand the core requirement of the problem.
+
+After further research and reviewing optimized solutions, I learned about reversing only half of the number. This idea initially seemed unintuitive, but it quickly became clear that fully reversing the number is unnecessary. By comparing just the two halves, the solution becomes more efficient and avoids potential overflow issues.
+
+This problem reinforced an important lesson for me: a working solution is not always the best solution. With deeper analysis, it is often possible to improve both efficiency and clarity.
 
 ---
 
 ## Conclusion
 
-The **half-reversal approach** is the most optimal and professional solution. It avoids unnecessary memory usage, prevents overflow, and directly addresses the follow-up constraint of not converting the integer to a string.
+The **half-reversal approach** is the most optimal and professional solution to the Palindrome Number problem. It avoids unnecessary memory usage, prevents integer overflow, and directly satisfies the constraint of solving the problem without converting the integer to a string.
 
 ---
 

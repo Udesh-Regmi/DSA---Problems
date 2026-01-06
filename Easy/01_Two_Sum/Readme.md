@@ -2,34 +2,38 @@
 
 ## Problem Overview
 
-Given an array of integers `nums` and an integer `target`, the objective is to identify the indices of the two distinct elements in the array whose sum equals the given `target`.
+Given an array of integers `nums` and an integer `target`, the goal is to identify the indices of two **distinct** elements in the array such that their sum equals `target`.
 
-### Key Assumptions
+---
+
+## Key Assumptions
 
 * Each input has **exactly one valid solution**.
-* The same array element **cannot be used twice**.
-* The order of the returned indices does **not** matter.
+* The same array element **cannot be used more than once**.
+* The order of the returned indices **does not matter**.
 
 ---
 
 ## Examples
 
-**Example 1**
+### Example 1
 
 ```
 Input: nums = [2, 7, 11, 15], target = 9
 Output: [0, 1]
-Explanation: nums[0] + nums[1] = 2 + 7 = 9
 ```
 
-**Example 2**
+**Explanation:**
+`nums[0] + nums[1] = 2 + 7 = 9`
+
+### Example 2
 
 ```
 Input: nums = [3, 2, 4], target = 6
 Output: [1, 2]
 ```
 
-**Example 3**
+### Example 3
 
 ```
 Input: nums = [3, 3], target = 6
@@ -60,9 +64,9 @@ Output: [0, 1]
 
 #### Explanation
 
-The brute force solution checks all possible pairs of elements using two nested loops. For each element, it compares the sum with every other element until the target is found.
+The brute force approach evaluates all possible pairs of elements using two nested loops. For each element, it checks whether the sum with another element equals the target.
 
-Although simple to understand and implement, this approach is inefficient for large inputs.
+This method is easy to understand and implement but becomes inefficient as the input size increases.
 
 #### Time and Space Complexity
 
@@ -88,13 +92,13 @@ class Solution {
 
 ---
 
-### 2. Optimal Approach (Using Hash Table)
+### 2. Optimal Approach (Using a Hash Table)
 
 #### Explanation
 
-This approach leverages a hash table to store previously visited numbers along with their indices. For each element, it calculates the complement (`target - current value`) and checks if it already exists in the hash table.
+The optimal solution uses a hash table to store numbers that have already been processed along with their indices. For each element in the array, the algorithm computes its complement (`target - current value`) and checks whether this complement exists in the hash table.
 
-This allows the problem to be solved in a single pass.
+If it exists, the indices of the complement and the current element are returned. Otherwise, the current element and its index are added to the hash table. This allows the problem to be solved in a single pass.
 
 #### Time and Space Complexity
 
@@ -125,9 +129,23 @@ class Solution {
 
 ---
 
+## Personal Learning Experience
+
+This was the first LeetCode problem I solved. Initially, the problem was not clear to me, and I spent a significant amount of time analyzing the question without making progress. I then worked through the examples manually using pen and paper, which helped me understand the requirement more clearly.
+
+My first instinct was to apply a brute force approach by using two loops to check every possible pair of elements. Conceptually, this made sense to me, but I encountered several syntax-related issues while implementing it in Java. After multiple attempts and debugging, I was eventually able to pass all test cases using this approach.
+
+Although the brute force solution worked, I recognized that it was not optimal. I began researching better solutions and came across explanations involving hash tables. At the time, I was familiar with the concept but had little practical experience using `HashMap` in Java.
+
+By studying tutorials and examples, I learned how a hash table could be used to solve the problem efficiently in a single pass. I attempted to implement the optimized solution myself and again faced some syntax challenges. However, even when seeking assistance to correct those errors, the underlying concept became clear and meaningful to me.
+
+This problem helped me understand not only how to solve Two Sum efficiently, but also how to approach problem-solving, debug code, and learn new data structures through practice.
+
+---
+
 ## Conclusion
 
-While the brute force approach is straightforward, it does not scale well. The hash table–based solution significantly improves performance and is the preferred method for this problem, especially under tight time constraints.
+The brute force approach provides a straightforward solution but does not scale well for larger inputs. The hash table–based approach significantly improves efficiency and is the preferred solution for this problem. More importantly, this problem serves as an excellent introduction to algorithmic thinking and the practical use of data structures such as hash tables.
 
 ---
 
